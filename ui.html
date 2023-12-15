@@ -1,0 +1,30 @@
+<p>articlesData.ts</p>
+<textarea id="index-textarea" style="width: 100%;" rows="20"></textarea>
+
+<script>
+	onmessage = (event) => {
+		const pluginMessage = event.data.pluginMessage
+
+		if (pluginMessage.type === 'index-code') {
+			document.getElementById('index-textarea').value = pluginMessage.code
+		}
+		else if (pluginMessage.type === 'articles-code') {
+			const {articlesArr} = pluginMessage
+
+			articlesArr.forEach(articleObj => {
+				const $articlePath = document.createElement('p')
+				$articlePath.textContent = articleObj.path
+
+				const $articleTextarea = document.createElement('textarea')
+				$articleTextarea.rows = 20
+				$articleTextarea.style.width = '100%'
+				$articleTextarea.value = articleObj.code
+
+				document.body.appendChild($articlePath)
+				document.body.appendChild($articleTextarea)
+			})
+
+			const indexTextarea = document.getElementById('index-textarea')
+		}
+	}
+</script>

@@ -1,0 +1,17 @@
+{
+	"name": "figmaToCodeOrigin",
+	"id": "1312707723371146137",
+	"api": "1.0.0",
+	"main": "dist/main.js",
+	"capabilities": [],
+	"enableProposedApi": false,
+	"editorType": [
+		"figma"
+	],
+	"ui": "ui.html",
+	"networkAccess": {
+		"allowedDomains": [
+			"none"
+		]
+	}
+}
