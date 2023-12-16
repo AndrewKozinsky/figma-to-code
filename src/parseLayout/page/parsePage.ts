@@ -1,6 +1,6 @@
-import { nodeNames } from '../common/nodeNames'
-import ArticleType from '../types/articleType'
-import parseArticleContent from './content/parseArticleContent'
+import { nodeNames } from '../../common/nodeNames'
+import ArticleType from '../../types/articleType'
+import parseArticleContent from '../content/parseArticleContent'
 import { parseArticleHeader } from './parseArticleHeader'
 import { parseMeta } from './parseMeta'
 
@@ -41,7 +41,7 @@ export function parsePage(pageNode: FrameNode, pageNum: number): ArticleType.Art
 					articleNode.name === nodeNames.articleContent &&
 					articleNode.type === 'FRAME'
 				) {
-					articleObj.content = parseArticleContent(articleNode)
+					articleObj.content = parseArticleContent(articleNode.children)
 				}
 			}
 		} else if (node.name === nodeNames.exercises) {

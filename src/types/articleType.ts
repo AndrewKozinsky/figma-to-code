@@ -1,4 +1,3 @@
-// import React, { ReactNode } from 'react'
 // import ExercisesType from './exercisesType'
 
 namespace ArticleType {
@@ -31,11 +30,10 @@ namespace ArticleType {
 		| Paragraph
 		| List
 		| Note
-		| GrammarTable
 		| ExercisesType.Exercises
 		| CustomComponent
 	)[]*/
-	export type Content = (Header | Paragraph)[]
+	export type Content = (Header | Paragraph | List | Note | CustomComponent)[]
 
 	// Заголовок
 	export type Header = {
@@ -62,12 +60,12 @@ namespace ArticleType {
 	export type ParagraphSize = 'small' | 'normal' | 'big' | 'giant'
 
 	// Список. Включает в себя блочные элементы.
-	/*export type List = {
+	export type List = {
 		type: 'list'
 		// Нумерованный или ненумерованный список?
 		listType: 'numbers' | 'dots'
 		children: Paragraph[]
-	}*/
+	}
 
 	export type TextElem = Text | ArrowText
 
@@ -75,11 +73,12 @@ namespace ArticleType {
 	export type Text = {
 		type: 'text'
 		// Стиль текста
-		color?: 'normal' | 'blue' | 'gold' | 'error' | 'gray'
+		color?: TextColor
 		// Жирность текста
 		weight?: 'normal' | 'bold'
 		text: string
 	}
+	export type TextColor = 'black' | 'blue' | 'gold' | 'error' | 'gray'
 
 	// Текст. Строковый элемент помещаемый в абзац.
 	export type ArrowText = {
@@ -87,30 +86,18 @@ namespace ArticleType {
 	}
 
 	// Заметка. Может включать весь доступный контент: заголовки, абзацы, грамматические таблицы.
-	/*export type Note = {
+	export type Note = {
 		type: 'note'
 		// Стиль заметки
 		noteStyle?: 'gray' | 'yellow'
-		children: NoteChildren
-	}*/
-	// export type NoteChildren = (Header | Paragraph | GrammarTable)[]
-
-	// Грамматическая таблица.
-	/*export type GrammarTable = {
-		type: 'grammarTable'
-		// Тип грамматики:
-		// personalPronouns — личные местоимения
-		// toBePresent — to be в настоящем времени
-		// possessivePronouns — притяжательные местоимения
-		// presentSimple — Present Simple
-		grammarType: 'personalPronouns' | 'toBePresent' | 'possessivePronouns' | 'presentSimple'
-	}*/
+		children: Content
+	}
 
 	// Нестандартный компонент статьи
-	/*export type CustomComponent = {
+	export type CustomComponent = {
 		type: 'customComponent'
-		component: ReactNode
-	}*/
+		component: any // На самом деле ReactNode
+	}
 }
 
 export default ArticleType

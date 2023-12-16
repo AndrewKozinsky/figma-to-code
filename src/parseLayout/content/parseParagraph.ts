@@ -1,4 +1,5 @@
 import ArticleType from '../../types/articleType'
+import { parseText } from './parseText'
 
 function parseParagraph(
 	paragraphInstance: InstanceNode,
@@ -7,21 +8,18 @@ function parseParagraph(
 	const instanceProps = paragraphInstance.componentProperties
 	const sizeProp = instanceProps.size.value as ArticleType.ParagraphSize
 
+	const paragraphNode = paragraphInstance.children[0]
+	if (paragraphNode.type !== 'TEXT') {
+		return null
+	}
+
 	return {
 		type: 'paragraph',
 		// Должен ли быть отступ от верхнего элемента
 		offset: hasOffset,
 		// Размер текста
 		textSize: sizeProp,
-		children: [
-			{
-				type: 'text',
-				color: 'normal',
-				// Жирность текста
-				weight: 'normal',
-				text: 'Мой текст',
-			},
-		],
+		children: parseText(paragraphNode),
 	}
 }
 

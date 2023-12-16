@@ -33,4 +33,12 @@ export const nodeNames = {
 	contentOffset: 'content-offset',
 	// Экземпляр абзаца
 	contentParagraph: 'content-paragraph',
+	// Нумерованный список
+	contentNumbersList: 'content-numbers-list',
+	// Ненумерованный список
+	contentDotsList: 'content-dots-list',
+	// Заметка с серым фоном
+	contentGrayNote: 'content-gray-note',
+	// Заметка с жёлтым фоном
+	contentYellowNote: 'content-yellow-note',
 }

@@ -1,5 +1,5 @@
-import { nodeNames } from '../common/nodeNames'
-import ArticleType from '../types/articleType'
+import { nodeNames } from '../../common/nodeNames'
+import ArticleType from '../../types/articleType'
 
 export function parseMeta(pageNode: FrameNode, pageNum: number): ArticleType.ArticleMeta {
 	let slug = ''

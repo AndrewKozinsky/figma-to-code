@@ -1,4 +1,4 @@
-import { nodeNames } from '../common/nodeNames'
+import { nodeNames } from '../../common/nodeNames'
 
 export function parseArticleHeader(headerInstance: InstanceNode) {
 	const headerTextNode = headerInstance.children.find((childNode) => {

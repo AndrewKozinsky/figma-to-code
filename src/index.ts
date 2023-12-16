@@ -1,6 +1,6 @@
 import createArticlesCode from './codeAsString/articlesCode'
 import createIndexCode from './codeAsString/indexCode'
-import { parsePages } from './parseLayout/parsePages'
+import { parsePages } from './parseLayout/page/parsePages'
 
 const articles = parsePages()
 const indexCodeStr = createIndexCode(articles)
