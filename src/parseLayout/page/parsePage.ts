@@ -41,11 +41,9 @@ export function parsePage(pageNode: FrameNode, pageNum: number): ArticleType.Art
 					articleNode.name === nodeNames.articleContent &&
 					articleNode.type === 'FRAME'
 				) {
-					articleObj.content = parseArticleContent(articleNode.children)
+					articleObj.content = parseArticleContent(pageNode, articleNode.children)
 				}
 			}
-		} else if (node.name === nodeNames.exercises) {
-			// Потом тут напиши разбор упражнений
 		}
 	}
 

@@ -8,8 +8,7 @@ export const nodeNames = {
 	page: 'page',
 	// Статья
 	article: 'article',
-	// Все упражнения статьи
-	exercises: 'exercises',
+	// -----
 	// Метаинформация о статье: url, описание, платная, опубликованная и прочее
 	articleMeta: 'article-meta',
 	// Слаг статьи
@@ -20,6 +19,7 @@ export const nodeNames = {
 	articleMetaIsPaid: 'article-meta-is-paid',
 	// Статья опубликована
 	articleMetaIsPublished: 'article-meta-is-published',
+	// -----
 	// Экземпляр заголовка статьи
 	articleHeader: 'article-header',
 	// Текст заголовка статьи
@@ -41,4 +41,27 @@ export const nodeNames = {
 	contentGrayNote: 'content-gray-note',
 	// Заметка с жёлтым фоном
 	contentYellowNote: 'content-yellow-note',
+	// Пометка для автора. Непубликуемый.
+	memorandum: 'memorandum',
+	// Место, где в статье будет кнопка открывающее упражнение
+	contentExercise: 'content-exercise',
+	// -----
+	// Все упражнения статьи
+	exercisesPage: 'exercises-page',
+	// Ряд упражнений
+	exercisesRow: 'exercises-row',
+	// Блок с русским предложением и переводами с разбором
+	exercisesBlock: 'exercises-block',
+	// Примечение к тексту русского предложения
+	exerciseRusNote: 'exercise-rus-note',
+	// Текст русского предложения
+	exerciseRus: 'exercise-rus',
+	// Контейнер слово для заучивания
+	exerciseWords: 'exercise-words',
+	// Контейнер с английским предложением и анализом
+	exerciseAnalysis: 'exercise-analysis',
+	// Текст английского предложения
+	exerciseEng: 'exercise-eng',
+	// Контейнер с анализом
+	exerciseAnalysisContent: 'exercise-analysis-content',
 }

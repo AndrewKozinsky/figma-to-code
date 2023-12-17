@@ -1,4 +1,4 @@
-// import ExercisesType from './exercisesType'
+import ExercisesType from './exercisesType'
 
 namespace ArticleType {
 	// Данные статьи
@@ -25,15 +25,14 @@ namespace ArticleType {
 	}
 
 	// Содержимое статьи
-	/*export type Content = (
+	export type Content = (
 		| Header
 		| Paragraph
 		| List
 		| Note
-		| ExercisesType.Exercises
 		| CustomComponent
-	)[]*/
-	export type Content = (Header | Paragraph | List | Note | CustomComponent)[]
+		| ExercisesType.Exercises
+	)[]
 
 	// Заголовок
 	export type Header = {

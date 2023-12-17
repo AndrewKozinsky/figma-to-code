@@ -25,6 +25,7 @@ export function parseText(paragraphNode: TextNode): ArticleType.TextElem[] {
 			// @ts-ignore
 			const color = fills[0].color
 			const colorName = getColorName(color)
+			const weightName = getWeightName(weight)
 
 			// Если массив пустой или последним элементом стрелка, то считать,
 			// что последнего текстового элемента нет и нужно добавлять новый, а не изменять старый
@@ -33,11 +34,11 @@ export function parseText(paragraphNode: TextNode): ArticleType.TextElem[] {
 				lastObj = undefined
 			}
 
-			if (!lastObj || lastObj.color !== colorName) {
+			if (!lastObj || lastObj.color !== colorName || lastObj.weight !== weightName) {
 				outputObjArr.push({
 					type: 'text',
 					color: colorName,
-					weight: weight < 500 ? 'normal' : 'bold',
+					weight: weightName,
 					text: paragraphNode.characters[i],
 				})
 			} else {
@@ -73,4 +74,8 @@ function getColorName(colorObj: ColorObj): ArticleType.TextColor {
 	} else {
 		return 'gray'
 	}
+}
+
+function getWeightName(weight: number) {
+	return weight < 500 ? 'normal' : 'bold'
 }

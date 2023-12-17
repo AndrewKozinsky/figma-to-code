@@ -2,13 +2,13 @@ import { nodeNames } from '../../common/nodeNames'
 import ArticleType from '../../types/articleType'
 import parseArticleContent from './parseArticleContent'
 
-function parseNote(noteFrame: FrameNode): null | ArticleType.Note {
+function parseNote(pageNode: FrameNode, noteFrame: FrameNode): null | ArticleType.Note {
 	const noteStyle = noteFrame.name === nodeNames.contentGrayNote ? 'gray' : 'yellow'
 
 	return {
 		type: 'note',
 		noteStyle,
-		children: parseArticleContent(noteFrame.children),
+		children: parseArticleContent(pageNode, noteFrame.children),
 	}
 }
 
