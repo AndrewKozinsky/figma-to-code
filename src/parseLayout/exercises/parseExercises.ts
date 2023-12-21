@@ -41,10 +41,11 @@ function getExerciseBlockNodes(pageNode: FrameNode, exerciseIdx: number): undefi
 	const exercisesPageNode = pageNode.children.find((childNode) => {
 		return childNode.name === nodeNames.exercisesPage
 	})
+
 	if (!exercisesPageNode || exercisesPageNode.type !== 'FRAME') return
 
 	const exercisesRows = exercisesPageNode.children.filter((childNode) => {
-		return childNode.name === nodeNames.exercisesRow
+		return childNode.name === nodeNames.exercisesColumn
 	})
 
 	const exercisesRow = exercisesRows[exerciseIdx]
@@ -58,7 +59,7 @@ function getExerciseBlockNodes(pageNode: FrameNode, exerciseIdx: number): undefi
 /**
  * Получает узлы с упражнениями и формирует массив данных для отрисовки упражнений
  * @param pageNode — узел страницы
- * @param exBlockNodes — узлы с упражнениями
+ * @param exBlockNodes — узлы с упражнениями. Каждое упражнение представляет собой русское предложение, слова и варианты переводов с разборами.
  */
 function convertNodesToDataExercise(
 	pageNode: FrameNode,
@@ -66,8 +67,12 @@ function convertNodesToDataExercise(
 ): ExercisesType.Exercise[] {
 	if (!exBlockNodes) return []
 
-	return exBlockNodes.map((exerciseBlockNode) => {
-		return {
+	const exercisesDataArr: ExercisesType.Exercise[] = []
+
+	exBlockNodes.forEach((exerciseBlockNode) => {
+		if (!exerciseBlockNode.visible) return
+
+		exercisesDataArr.push({
 			// Какое-то примечание выше предложения
 			note: getExerciseRusNote(exerciseBlockNode),
 			// Предложение на русском языке
@@ -76,6 +81,8 @@ function convertNodesToDataExercise(
 			engSentences: getEngSentences(pageNode, exerciseBlockNode),
 			// Слова этого предложения
 			words: getSentenceWords(exerciseBlockNode),
-		}
+		})
 	})
+
+	return exercisesDataArr
 }

@@ -1,8 +1,7 @@
-import { nodeNames } from '../../common/nodeNames'
 import ArticleType from '../../types/articleType'
 
 function parseCustomComponent(node: SceneNode): null | ArticleType.CustomComponent {
-	if ([nodeNames.contentOffset, nodeNames.memorandum].includes(node.name)) {
+	if (node.name[0] !== node.name[0].toUpperCase()) {
 		return null
 	}
 

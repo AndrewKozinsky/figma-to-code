@@ -1,3 +1,4 @@
+import { makeLogger } from 'ts-loader/dist/logger'
 import { nodeNames } from '../../common/nodeNames'
 import ArticleType from '../../types/articleType'
 import ExercisesType from '../../types/exercisesType'
@@ -46,7 +47,7 @@ function getEngSentence(
 
 	// Получение узла с анализом английского предложения
 	const analysisNode = analysisNodeRoot.children.find((childNode) => {
-		return childNode.name === nodeNames.exerciseAnalysis
+		return childNode.name === nodeNames.exerciseAnalysisContent
 	})
 
 	let analysis: undefined | ArticleType.Content = undefined
@@ -68,7 +69,6 @@ function isCorrectExercise(exerciseEngNode: SceneNode) {
 
 	// @ts-ignore
 	const { color } = exerciseEngNode.fills[0]
-	console.log(color)
 
 	return (
 		Math.round(color.r * 255) === 0 &&

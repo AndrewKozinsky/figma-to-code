@@ -10,11 +10,10 @@ export function parsePages() {
 	const articles: ArticleType.Article[] = []
 
 	// Фрейм с колонками страниц
-	const allPagesNode = figma.currentPage.children[0]
-
-	if (allPagesNode.name !== nodeNames.allPages || allPagesNode.type !== 'FRAME') {
-		return
-	}
+	const allPagesNode = figma.currentPage.children.find((canvasChild) => {
+		return canvasChild.name === nodeNames.allPages
+	})
+	if (!allPagesNode || allPagesNode.type !== 'FRAME') return
 
 	// Перебор всех колонок страниц
 	for (const pagesRowNode of allPagesNode.children) {
@@ -25,6 +24,8 @@ export function parsePages() {
 		// Перебор страниц колонки страниц
 		for (let i = 0; i < pagesRowNode.children.length; i++) {
 			const pageNode = pagesRowNode.children[i]
+
+			if (!pageNode.visible) continue
 
 			if (pageNode.name !== nodeNames.page || pageNode.type !== 'FRAME') {
 				return

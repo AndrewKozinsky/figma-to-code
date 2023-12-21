@@ -49,7 +49,7 @@ export const nodeNames = {
 	// Все упражнения статьи
 	exercisesPage: 'exercises-page',
 	// Ряд упражнений
-	exercisesRow: 'exercises-row',
+	exercisesColumn: 'exercises-column',
 	// Блок с русским предложением и переводами с разбором
 	exercisesBlock: 'exercises-block',
 	// Примечение к тексту русского предложения
@@ -58,6 +58,7 @@ export const nodeNames = {
 	exerciseRus: 'exercise-rus',
 	// Контейнер слово для заучивания
 	exerciseWords: 'exercise-words',
+	exerciseWordNote: 'exercise-word-note',
 	// Контейнер с английским предложением и анализом
 	exerciseAnalysis: 'exercise-analysis',
 	// Текст английского предложения

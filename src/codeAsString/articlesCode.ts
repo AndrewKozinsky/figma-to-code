@@ -18,9 +18,12 @@ function createArticlesCode(articlesArr: undefined | ArticleType.Article[]) {
 export default createArticlesCode
 
 function getArticlePath(article: ArticleType.Article, articleNum: number) {
-	const camelCaseSlug = snakeToCamel(article.meta.slug)
+	const folderName = snakeToCamel(article.meta.slug)
 
-	return `${articleNum}_${camelCaseSlug}/${camelCaseSlug}.tsx`
+	let fileName = snakeToCamel(article.meta.slug.slice(1))
+	fileName = article.meta.slug.slice(0, 1).toUpperCase() + fileName
+
+	return `${articleNum}_${folderName}/${fileName}.tsx`
 }
 
 function getArticleCode(article: ArticleType.Article, articleNum: number) {

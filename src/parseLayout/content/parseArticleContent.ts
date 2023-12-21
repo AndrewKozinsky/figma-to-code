@@ -14,6 +14,8 @@ function parseArticleContent(pageNode: FrameNode, artContentNodes: readonly Scen
 	let exerciseIdx = 0
 
 	artContentNodes.forEach((artContentNode, i) => {
+		if (!artContentNode.visible) return
+
 		const hasOffset = getOffsetSize(artContentNodes[i - 1])
 
 		if (artContentNode.name === nodeNames.contentHeader && artContentNode.type === 'INSTANCE') {
