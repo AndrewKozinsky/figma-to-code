@@ -32,15 +32,16 @@ namespace ArticleType {
 		| Note
 		| CustomComponent
 		| ExercisesType.Exercises
+		| Faq
 	)[]
 
 	// Заголовок
 	export type Header = {
 		type: 'header'
 		// Тег
-		tag: 'h2' | 'h3' | 'h4'
+		tag: HeaderTag
 		// Стиль тега
-		style: 'h2' | 'h3' | 'h4'
+		style: HeaderStyle
 		// Текст заголовка
 		text: string
 	}
@@ -96,6 +97,16 @@ namespace ArticleType {
 	export type CustomComponent = {
 		type: 'customComponent'
 		component: any // На самом деле ReactNode
+	}
+
+	// Вопросы и ответы.
+	export type Faq = {
+		type: 'faq'
+		items: FaqItem[]
+	}
+	export type FaqItem = {
+		question: Content
+		answer: Content
 	}
 }
 

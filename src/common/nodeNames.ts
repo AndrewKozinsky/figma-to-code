@@ -45,6 +45,14 @@ export const nodeNames = {
 	memorandum: 'memorandum',
 	// Место, где в статье будет кнопка открывающее упражнение
 	contentExercise: 'content-exercise',
+	// Контейнер Вопросов и ответов
+	contentFaq: 'content-faq',
+	// Блок вопроса и ответа в компоненте Вопросов и ответов
+	contentFaqItem: 'content-faq-item',
+	// Блок вопроса в компоненте Вопросов и ответов
+	contentFaqQuestion: 'content-faq-question',
+	// Блок ответа в компоненте Вопросов и ответов
+	contentFaqAnswer: 'content-faq-answer',
 	// -----
 	// Все упражнения статьи
 	exercisesPage: 'exercises-page',
@@ -52,13 +60,16 @@ export const nodeNames = {
 	exercisesColumn: 'exercises-column',
 	// Блок с русским предложением и переводами с разбором
 	exercisesBlock: 'exercises-block',
-	// Примечение к тексту русского предложения
+	// Примечание к тексту русского предложения
 	exerciseRusNote: 'exercise-rus-note',
 	// Текст русского предложения
 	exerciseRus: 'exercise-rus',
-	// Контейнер слово для заучивания
+	// Контейнер слов для заучивания
 	exerciseWords: 'exercise-words',
+	// Примечание к слову для заучивания
 	exerciseWordNote: 'exercise-word-note',
+	// Слово для заучивания
+	exerciseWordText: 'exercise-word-text',
 	// Контейнер с английским предложением и анализом
 	exerciseAnalysis: 'exercise-analysis',
 	// Текст английского предложения

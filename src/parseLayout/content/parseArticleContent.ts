@@ -3,6 +3,7 @@ import ArticleType from '../../types/articleType'
 import parseCustomComponent from './customComponent'
 import getOffsetSize from './getOffsetSize'
 import parseExercises from '../exercises/parseExercises'
+import parseFaq from './parseFaq'
 import parseHeader from './parseHeader'
 import parseList from './parseList'
 import parseNote from './parseNote'
@@ -60,6 +61,14 @@ function parseArticleContent(pageNode: FrameNode, artContentNodes: readonly Scen
 			if (!exercise) return
 
 			content.push(exercise)
+		} else if (
+			artContentNode.name === nodeNames.contentFaq &&
+			artContentNode.type === 'FRAME'
+		) {
+			const note = parseFaq(pageNode, artContentNode)
+			if (!note) return
+
+			content.push(note)
 		} else {
 			const customComponent = parseCustomComponent(artContentNode)
 			if (!customComponent) return

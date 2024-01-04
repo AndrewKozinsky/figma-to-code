@@ -18,12 +18,9 @@ function createArticlesCode(articlesArr: undefined | ArticleType.Article[]) {
 export default createArticlesCode
 
 function getArticlePath(article: ArticleType.Article, articleNum: number) {
-	const folderName = snakeToCamel(article.meta.slug)
+	const camelCaseSlug = snakeToCamel(article.meta.slug)
 
-	let fileName = snakeToCamel(article.meta.slug.slice(1))
-	fileName = article.meta.slug.slice(0, 1).toUpperCase() + fileName
-
-	return `${articleNum}_${folderName}/${fileName}.tsx`
+	return `${articleNum}_${camelCaseSlug}/${camelCaseSlug}.tsx`
 }
 
 function getArticleCode(article: ArticleType.Article, articleNum: number) {
@@ -33,12 +30,14 @@ function getArticleCode(article: ArticleType.Article, articleNum: number) {
 ${createCustomComponentImportsStr(article.content)}
 
 const ${camelCaseSlug}: ArticleType.Article = {
-	number: ${articleNum},
-	slug: '${article.meta.slug}',
-	articleName: '${article.meta.articleName}',
-	articleDescription: '${article.meta.articleDescription}',
-	isPaid: ${article.meta.isPaid},
-	isPublished: ${article.meta.isPublished},
+	meta: {
+		number: ${articleNum},
+		slug: '${article.meta.slug}',
+		articleName: '${article.meta.articleName}',
+		articleDescription: '${article.meta.articleDescription}',
+		isPaid: ${article.meta.isPaid},
+		isPublished: ${article.meta.isPublished},
+	},
 	content: ${JSON.stringify(article.content)},
 }
 
@@ -52,7 +51,8 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 	articleContent.forEach((artItem) => {
 		if (artItem.type === 'customComponent') {
 			const compName = artItem.component.slice(1, -2)
-			customComponentImportsStr += `import ${compName} from './${compName}'`
+			customComponentImportsStr += `import ${compName} from './${compName}'
+`
 		}
 
 		if (artItem.type === 'list' || artItem.type === 'note') {

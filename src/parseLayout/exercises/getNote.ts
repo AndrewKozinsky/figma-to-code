@@ -5,10 +5,8 @@ import { nodeNames } from '../../common/nodeNames'
  * @param exerciseBlockNode — узел упражнения (русское предложение и варианты переводов с разбором)
  */
 export function getExerciseRusNote(exerciseBlockNode: FrameNode) {
-	if (!exerciseBlockNode.visible) return
-
 	const exerciseRusNoteNode = exerciseBlockNode.children.find((childNode) => {
-		return childNode.name === nodeNames.exerciseRusNote
+		return childNode.name === nodeNames.exerciseRusNote && childNode.visible
 	})
 
 	return exerciseRusNoteNode && exerciseRusNoteNode.type === 'TEXT'

@@ -1,9 +1,12 @@
+import { makeLogger } from 'ts-loader/dist/logger'
 import ArticleType from '../../types/articleType'
 import { isObjectsEqual } from '../../utils/object'
 import Config from '../config'
 
 export function parseText(paragraphNode: TextNode): ArticleType.TextElem[] {
 	const outputObjArr: ArticleType.TextElem[] = []
+
+	// const paragraphText = paragraphNode.characters.replace(/\s*→\s*/, '→')
 
 	for (let i = 0; i < paragraphNode.characters.length; i++) {
 		if (paragraphNode.characters[i] === '→') {
@@ -44,6 +47,22 @@ export function parseText(paragraphNode: TextNode): ArticleType.TextElem[] {
 			} else {
 				lastObj.text += paragraphNode.characters[i]
 			}
+		}
+	}
+
+	// Удаление пробельных в конце текста до знака стрелки и в начале текста в тексте после знака стрелки
+	for (let i = 0; i < outputObjArr.length; i++) {
+		const prevTextObj = outputObjArr[i - 1]
+		const currentTextObj = outputObjArr[i]
+		const nextTextObj = outputObjArr[i + 1]
+
+		if (currentTextObj.type !== 'text') continue
+
+		if (prevTextObj && prevTextObj.type === 'arrow') {
+			currentTextObj.text = currentTextObj.text.replace(/^\s+/, '')
+		}
+		if (nextTextObj && nextTextObj.type === 'arrow') {
+			currentTextObj.text = currentTextObj.text.replace(/\s+$/, '')
 		}
 	}
 

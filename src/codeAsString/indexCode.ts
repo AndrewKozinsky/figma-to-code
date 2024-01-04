@@ -44,12 +44,9 @@ function createImportsStr(articlesArr: ArticleType.Article[]) {
 	for (let i = 0; i < articlesArr.length; i++) {
 		const article = articlesArr[i]
 
-		const folderName = snakeToCamel(article.meta.slug)
+		const camelCaseSlug = snakeToCamel(article.meta.slug)
 
-		let fileName = snakeToCamel(article.meta.slug.slice(1))
-		fileName = article.meta.slug.slice(0, 1).toUpperCase() + fileName
-
-		importsStr += `import ${fileName} from './${i + 1}_${folderName}/${fileName}'
+		importsStr += `import ${camelCaseSlug} from './${i + 1}_${camelCaseSlug}/${camelCaseSlug}'
         `
 	}
 
