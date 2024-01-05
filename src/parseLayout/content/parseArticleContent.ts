@@ -4,6 +4,7 @@ import parseCustomComponent from './customComponent'
 import getOffsetSize from './getOffsetSize'
 import parseExercises from '../exercises/parseExercises'
 import parseFaq from './parseFaq'
+import parseGrid from './parseGrid'
 import parseHeader from './parseHeader'
 import parseList from './parseList'
 import parseNote from './parseNote'
@@ -66,6 +67,14 @@ function parseArticleContent(pageNode: FrameNode, artContentNodes: readonly Scen
 			artContentNode.type === 'FRAME'
 		) {
 			const note = parseFaq(pageNode, artContentNode)
+			if (!note) return
+
+			content.push(note)
+		} else if (
+			artContentNode.name === nodeNames.contentGrid &&
+			artContentNode.type === 'FRAME'
+		) {
+			const note = parseGrid(pageNode, artContentNode)
 			if (!note) return
 
 			content.push(note)

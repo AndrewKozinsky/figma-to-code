@@ -33,6 +33,7 @@ namespace ArticleType {
 		| CustomComponent
 		| ExercisesType.Exercises
 		| Faq
+		| Grid
 	)[]
 
 	// Заголовок
@@ -107,6 +108,12 @@ namespace ArticleType {
 	export type FaqItem = {
 		question: Content
 		answer: Content
+	}
+
+	// Сетка с горизонтальными колонками.
+	export type Grid = {
+		type: 'grid'
+		cells: Content[]
 	}
 }
 

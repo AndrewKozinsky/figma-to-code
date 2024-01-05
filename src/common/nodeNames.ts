@@ -53,6 +53,10 @@ export const nodeNames = {
 	contentFaqQuestion: 'content-faq-question',
 	// Блок ответа в компоненте Вопросов и ответов
 	contentFaqAnswer: 'content-faq-answer',
+	// Сетка
+	contentGrid: 'content-grid',
+	// Ячейка сетки
+	contentGridCell: 'content-grid-cell',
 	// -----
 	// Все упражнения статьи
 	exercisesPage: 'exercises-page',

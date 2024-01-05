@@ -72,8 +72,8 @@ function articleFileCodePostprocessing(articleCodeStr: string) {
 	// Так: { type: 'customComponent', component: '<PersonalPronounseTable />' }
 	// Но чтобы компонент подключился их быть не должно.
 	// Поэтому тут они убираются.
-	let updatedStr = articleCodeStr.replace(/component":"</, 'component": <')
-	updatedStr = updatedStr.replace(/\/>"/, '/>')
+	let updatedStr = articleCodeStr.replace(/component":"</g, 'component": <')
+	updatedStr = updatedStr.replace(/\/>"/g, '/>')
 
 	return updatedStr
 }
