@@ -74,10 +74,10 @@ function parseArticleContent(pageNode: FrameNode, artContentNodes: readonly Scen
 			artContentNode.name === nodeNames.contentGrid &&
 			artContentNode.type === 'FRAME'
 		) {
-			const note = parseGrid(pageNode, artContentNode)
-			if (!note) return
+			const grid = parseGrid(pageNode, artContentNode, hasOffset)
+			if (!grid) return
 
-			content.push(note)
+			content.push(grid)
 		} else {
 			const customComponent = parseCustomComponent(artContentNode)
 			if (!customComponent) return

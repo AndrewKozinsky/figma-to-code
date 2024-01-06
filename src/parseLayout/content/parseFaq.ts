@@ -29,7 +29,13 @@ function parseFaqItem(pageNode: FrameNode, faqItemFrame: FrameNode): ArticleType
 	}) as FrameNode
 
 	return {
-		question: questionNode ? parseArticleContent(pageNode, questionNode.children) : [],
-		answer: answerNode ? parseArticleContent(pageNode, answerNode.children) : [],
+		question: {
+			type: 'ReactNode',
+			value: questionNode ? parseArticleContent(pageNode, questionNode.children) : [],
+		},
+		answer: {
+			type: 'ReactNode',
+			value: answerNode ? parseArticleContent(pageNode, answerNode.children) : [],
+		},
 	}
 }

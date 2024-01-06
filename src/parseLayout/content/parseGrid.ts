@@ -2,7 +2,17 @@ import { nodeNames } from '../../common/nodeNames'
 import ArticleType from '../../types/articleType'
 import parseArticleContent from './parseArticleContent'
 
-function parseGrid(pageNode: FrameNode, gridFrame: FrameNode): null | ArticleType.Grid {
+/**
+ *
+ * @param pageNode — узел страницы
+ * @param gridFrame — элемент сетки
+ * @param hasOffset — нужно ли делать отступ
+ */
+function parseGrid(
+	pageNode: FrameNode,
+	gridFrame: FrameNode,
+	hasOffset: boolean,
+): null | ArticleType.Grid {
 	const cells = gridFrame.children
 		.filter((gridCellFrame) => {
 			return (
@@ -16,6 +26,7 @@ function parseGrid(pageNode: FrameNode, gridFrame: FrameNode): null | ArticleTyp
 
 	return {
 		type: 'grid',
+		offset: hasOffset,
 		cells,
 	}
 }

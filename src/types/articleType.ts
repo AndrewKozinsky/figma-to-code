@@ -106,13 +106,15 @@ namespace ArticleType {
 		items: FaqItem[]
 	}
 	export type FaqItem = {
-		question: Content
-		answer: Content
+		question: { type: 'ReactNode'; value: Content }
+		answer: { type: 'ReactNode'; value: Content }
 	}
 
 	// Сетка с горизонтальными колонками.
 	export type Grid = {
 		type: 'grid'
+		// Должен ли быть отступ от верхнего элемента
+		offset?: boolean
 		cells: Content[]
 	}
 }

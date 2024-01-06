@@ -57,6 +57,15 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 
 		if (artItem.type === 'list' || artItem.type === 'note') {
 			customComponentImportsStr += createCustomComponentImportsStr(artItem.children)
+		} else if (artItem.type === 'faq') {
+			artItem.items.forEach((faqItem) => {
+				customComponentImportsStr += createCustomComponentImportsStr(faqItem.answer.value)
+				customComponentImportsStr += createCustomComponentImportsStr(faqItem.question.value)
+			})
+		} else if (artItem.type === 'grid') {
+			artItem.cells.forEach((gridCell) => {
+				customComponentImportsStr += createCustomComponentImportsStr(gridCell)
+			})
 		}
 	})
 
