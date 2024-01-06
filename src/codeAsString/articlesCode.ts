@@ -51,6 +51,8 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 	articleContent.forEach((artItem) => {
 		if (artItem.type === 'customComponent') {
 			const compName = artItem.component.slice(1, -2)
+			if (customComponentImportsStr.includes(compName)) return
+
 			customComponentImportsStr += `import ${compName} from './${compName}'
 `
 		}
@@ -83,6 +85,18 @@ function articleFileCodePostprocessing(articleCodeStr: string) {
 	// Поэтому тут они убираются.
 	let updatedStr = articleCodeStr.replace(/component":"</g, 'component": <')
 	updatedStr = updatedStr.replace(/\/>"/g, '/>')
+
+	// Так как на странице может быть несколько одинаковых пользовательских компонентов,
+	// то будет несколько одинаковых импортов. Поэтому их нужно убрать
+	const uniqLines: string[] = []
+
+	updatedStr.split('\n').forEach((line) => {
+		if (!line.includes('import ') || !uniqLines.includes(line)) {
+			uniqLines.push(line)
+		}
+	})
+
+	updatedStr = uniqLines.join('\n')
 
 	return updatedStr
 }
