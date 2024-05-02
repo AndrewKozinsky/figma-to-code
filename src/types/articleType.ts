@@ -1,17 +1,62 @@
 import ExercisesType from './exercisesType'
 
 namespace ArticleType {
-	// Данные статьи
-	export type Article = {
-		meta: ArticleMeta
+	// Объединённый тип статьи
+	export type Art = ArtWelcome | ArtLevel | ArtArticle | ArtMedia
+
+	// Типы статей
+	export enum ArtType {
+		// Статья с приветствием с началом курса
+		welcome = 'welcome',
+		// Статья начала нового уровня в изучении
+		level = 'level',
+		// Стандартная статья
+		article = 'article',
+		// Статья про фильмы и книги, которые можно посмотреть и почитать
+		media = 'media',
+	}
+
+	// Уровни владения языка
+	export enum LangLevel {
+		a1 = 'a1',
+		a2 = 'a2',
+		b1 = 'b1',
+		b2 = 'b2',
+	}
+
+	// Статья с приветствием с началом курса
+	export type ArtWelcome = {
+		type: ArtType.welcome
+		meta: ArtMeta
+	}
+
+	// Статья начала нового уровня в изучении
+	export type ArtLevel = {
+		type: ArtType.level
+		level: LangLevel
+		meta: ArtMeta
+	}
+
+	// Статья про фильмы и книги, которые можно посмотреть и почитать
+	export type ArtMedia = {
+		type: ArtType.media
+		meta: ArtMeta
+	}
+
+	// Стандартная статья
+	export type ArtArticle = {
+		type: ArtType.article
+		meta: ArtMeta
 		// Содержимое статьи
 		content: Content
 	}
 
 	// Метаданные статьи
-	export type ArticleMeta = {
+	export type ArtMeta = {
 		// Порядковый номер статьи
 		number: number
+		// Подпись статьи: Вводная глава, Уровень А1, Глава 1 и так далее.
+		caption: string
 		// Название статьи в адресной строке ('toBe')
 		slug: string
 		// Название статьи ('Глагол to be из данных')
@@ -21,18 +66,18 @@ namespace ArticleType {
 		// Платная статья?
 		isPaid: boolean
 		// Статья опубликована?
-		isPublished: boolean
+		// isPublished: boolean
 	}
 
 	// Содержимое статьи
 	export type Content = (
 		| Header
 		| Paragraph
-		| List
 		| Note
-		| CustomComponent
-		| ExercisesType.Exercises
 		| Faq
+		| CustomComponent
+		| List
+		| ExercisesType.Exercises
 		| Grid
 	)[]
 
@@ -115,7 +160,18 @@ namespace ArticleType {
 		type: 'grid'
 		// Должен ли быть отступ от верхнего элемента
 		offset?: boolean
-		cells: Content[]
+		cells: GridCell[]
+	}
+
+	// Ячейка сетки
+	export type GridCell = {
+		// Минимальная ширина. Если будет меньше, то ячейка переместится вниз.
+		// Строка вида '100px' или '50%'.
+		minWidth?: string
+		// Ширина
+		// Строка вида '100px' или '50%'.
+		width?: string
+		children: Content
 	}
 }
 

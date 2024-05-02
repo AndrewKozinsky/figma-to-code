@@ -22,8 +22,8 @@ namespace ExercisesType {
 
 	// Перевод предложения на английская
 	export type EngSentence = {
-		// Текст предложения на английском
-		engSentence: string
+		// Текст похожих предложений на английском
+		engSentences: string[]
 		// Правильное?
 		isCorrect: boolean
 		// Разбор предложения

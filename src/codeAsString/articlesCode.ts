@@ -1,7 +1,7 @@
 import ArticleType from '../types/articleType'
 import { snakeToCamel } from '../utils/strings'
 
-function createArticlesCode(articlesArr: undefined | ArticleType.Article[]) {
+function createArticlesCode(articlesArr: undefined | ArticleType.Art[]) {
 	if (!articlesArr) return []
 
 	return articlesArr.map((article, i) => {
@@ -9,7 +9,9 @@ function createArticlesCode(articlesArr: undefined | ArticleType.Article[]) {
 		articleCode = articleFileCodePostprocessing(articleCode)
 
 		return {
+			// Путь до файла статьи
 			path: getArticlePath(article, i + 1),
+			// Код, который нужно положить в файл
 			code: articleCode,
 		}
 	})
@@ -17,26 +19,99 @@ function createArticlesCode(articlesArr: undefined | ArticleType.Article[]) {
 
 export default createArticlesCode
 
-function getArticlePath(article: ArticleType.Article, articleNum: number) {
+function getArticlePath(article: ArticleType.Art, articleNum: number) {
 	const camelCaseSlug = snakeToCamel(article.meta.slug)
 
 	return `${articleNum}_${camelCaseSlug}/${camelCaseSlug}.tsx`
 }
 
-function getArticleCode(article: ArticleType.Article, articleNum: number) {
+function getArticleCode(article: ArticleType.Art, articleNum: number) {
+	const obj = {
+		[ArticleType.ArtType.welcome]: parseWelcomeArt,
+		[ArticleType.ArtType.level]: parseLevelArt,
+		[ArticleType.ArtType.article]: parseArticleArt,
+		[ArticleType.ArtType.media]: parseMediaArt,
+	}
+
+	// @ts-ignore
+	return obj[article.type](article, articleNum)
+}
+
+function parseWelcomeArt(article: ArticleType.ArtWelcome, articleNum: number) {
+	const camelCaseSlug = snakeToCamel(article.meta.slug)
+
+	return `import ArticleType from '../../articleType'
+
+const ${camelCaseSlug}: ArticleType.ArtWelcome = {
+	type: ArticleType.ArtType.welcome,
+	meta: {
+		number: ${articleNum},
+		slug: '${article.meta.slug}',
+		caption: '${article.meta.caption}',
+		articleName: '${article.meta.articleName}',
+		articleDescription: '${article.meta.articleDescription}',
+	},
+}
+
+export default ${camelCaseSlug}
+`
+}
+
+function parseLevelArt(article: ArticleType.ArtLevel, articleNum: number) {
+	const camelCaseSlug = snakeToCamel(article.meta.slug)
+
+	return `import ArticleType from '../../articleType'
+
+const ${camelCaseSlug}: ArticleType.ArtLevel = {
+	type: ArticleType.ArtType.level,
+	level: '${article.level}' as any,
+	meta: {
+		number: ${articleNum},
+		slug: '${article.meta.slug}',
+		caption: '${article.meta.caption}',
+		articleName: '${article.meta.articleName}',
+		articleDescription: '${article.meta.articleDescription}',
+	},
+}
+
+export default ${camelCaseSlug}
+`
+}
+
+function parseMediaArt(article: ArticleType.ArtMedia, articleNum: number) {
+	const camelCaseSlug = snakeToCamel(article.meta.slug)
+
+	return `import ArticleType from '../../articleType'
+
+const ${camelCaseSlug}: ArticleType.ArtMedia = {
+	type: ArticleType.ArtType.media,
+	meta: {
+		number: ${articleNum},
+		slug: '${article.meta.slug}',
+		caption: '${article.meta.caption}',
+		articleName: '${article.meta.articleName}',
+		articleDescription: '${article.meta.articleDescription}',
+	},
+}
+
+export default ${camelCaseSlug}
+`
+}
+
+function parseArticleArt(article: ArticleType.ArtArticle, articleNum: number) {
 	const camelCaseSlug = snakeToCamel(article.meta.slug)
 
 	return `import ArticleType from '../../articleType'
 ${createCustomComponentImportsStr(article.content)}
 
-const ${camelCaseSlug}: ArticleType.Article = {
+const ${camelCaseSlug}: ArticleType.ArtArticle = {
+	type: ArticleType.ArtType.article,
 	meta: {
 		number: ${articleNum},
 		slug: '${article.meta.slug}',
+		caption: '${article.meta.caption}',
 		articleName: '${article.meta.articleName}',
 		articleDescription: '${article.meta.articleDescription}',
-		isPaid: ${article.meta.isPaid},
-		isPublished: ${article.meta.isPublished},
 	},
 	content: ${JSON.stringify(article.content)},
 }
@@ -44,7 +119,6 @@ const ${camelCaseSlug}: ArticleType.Article = {
 export default ${camelCaseSlug}
 `
 }
-
 function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 	let customComponentImportsStr = ''
 
@@ -57,7 +131,7 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 `
 		}
 
-		if (artItem.type === 'list' || artItem.type === 'note') {
+		/*if (artItem.type === 'list' || artItem.type === 'note') {
 			customComponentImportsStr += createCustomComponentImportsStr(artItem.children)
 		} else if (artItem.type === 'faq') {
 			artItem.items.forEach((faqItem) => {
@@ -66,9 +140,9 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 			})
 		} else if (artItem.type === 'grid') {
 			artItem.cells.forEach((gridCell) => {
-				customComponentImportsStr += createCustomComponentImportsStr(gridCell)
+				customComponentImportsStr += createCustomComponentImportsStr(gridCell.children)
 			})
-		}
+		}*/
 	})
 
 	return customComponentImportsStr

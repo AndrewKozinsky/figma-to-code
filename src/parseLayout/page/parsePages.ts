@@ -7,7 +7,7 @@ import { parsePage } from './parsePage'
  * Их разбирает другая функция.
  */
 export function parsePages() {
-	const articles: ArticleType.Article[] = []
+	const articles: ArticleType.Art[] = []
 
 	// Фрейм с колонками страниц
 	const allPagesNode = figma.currentPage.children.find((canvasChild) => {
@@ -22,17 +22,25 @@ export function parsePages() {
 		}
 
 		// Перебор страниц колонки страниц
-		for (let i = 0; i < pagesRowNode.children.length; i++) {
+		// for (let i = 0; i < pagesRowNode.children.length; i++) {
+		for (let i = 0; i < 4; i++) {
 			const pageNode = pagesRowNode.children[i]
 
 			if (!pageNode.visible) continue
 
-			if (pageNode.name !== nodeNames.page || pageNode.type !== 'FRAME') {
+			const nodeMainName = pageNode.name.split(' ')[0]
+			if (nodeMainName !== nodeNames.page || pageNode.type !== 'FRAME') {
 				return
 			}
 
-			articles.push(parsePage(pageNode, i + 1))
+			const parsedPage = parsePage(pageNode, i + 1)
+			if (parsedPage) {
+				articles.push(parsedPage)
+			}
 		}
+
+		// ПОТОМ НУЖНО УБРАТЬ ЭТУ ИНСТРУКЦИЮ ЧТОБЫ ОН ПРОХОДИЛ ВСЕ КОЛОНКИ!!!!
+		break
 	}
 
 	return articles

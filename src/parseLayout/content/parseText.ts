@@ -1,4 +1,3 @@
-import { makeLogger } from 'ts-loader/dist/logger'
 import ArticleType from '../../types/articleType'
 import { isObjectsEqual } from '../../utils/object'
 import Config from '../config'

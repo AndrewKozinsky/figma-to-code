@@ -48,6 +48,10 @@ function getExerciseBlockNodes(pageNode: FrameNode, exerciseIdx: number): undefi
 		return childNode.name === nodeNames.exercisesColumn
 	})
 
+	// Ограничу количество доступных предложений до 10.
+	// Мне кажется больше не следует делать.
+	exercisesRows.length = 10
+
 	const exercisesRow = exercisesRows[exerciseIdx]
 	if (!exercisesRow || exercisesRow.type !== 'FRAME') return
 

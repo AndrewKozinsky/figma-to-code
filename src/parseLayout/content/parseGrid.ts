@@ -13,22 +13,49 @@ function parseGrid(
 	gridFrame: FrameNode,
 	hasOffset: boolean,
 ): null | ArticleType.Grid {
-	const cells = gridFrame.children
-		.filter((gridCellFrame) => {
-			return (
-				gridCellFrame.name === nodeNames.contentGridCell && gridCellFrame.type === 'FRAME'
-			)
+	const cellsConfig: ArticleType.GridCell[] = gridFrame.children
+		.filter((cell) => {
+			return cell.name.startsWith(nodeNames.contentGridCell) && cell.type === 'FRAME'
 		})
 		.map((gridCellNode) => {
 			const gridCellFrame = gridCellNode as FrameNode
-			return parseArticleContent(pageNode, gridCellFrame.children)
+
+			const constraints = getCellConstraints(gridCellFrame)
+
+			return {
+				minWidth: constraints.minWidth,
+				width: constraints.width,
+				children: parseArticleContent(pageNode, gridCellFrame.children),
+			}
 		})
 
 	return {
 		type: 'grid',
 		offset: hasOffset,
-		cells,
+		cells: cellsConfig,
 	}
 }
 
 export default parseGrid
+
+function getCellConstraints(gridCellFrame: FrameNode) {
+	// ['content-grid-cell', 'minwidth=300px', 'width=50%']
+	const cellNodeNameParts = gridCellFrame.name.split(' ')
+
+	// Строка вида 'minwidth=300px'
+	const minWidthValue =
+		cellNodeNameParts.find((namePart) => {
+			return namePart.toLowerCase().startsWith('minwidth')
+		}) || ''
+
+	// Строка вида 'width=50%'
+	const widthValue =
+		cellNodeNameParts.find((namePart) => {
+			return namePart.toLowerCase().startsWith('width')
+		}) || ''
+
+	return {
+		minWidth: minWidthValue.split('=')[1],
+		width: widthValue.split('=')[1],
+	}
+}

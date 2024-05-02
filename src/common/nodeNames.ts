@@ -18,7 +18,7 @@ export const nodeNames = {
 	// Статья бесплатная для просмотра
 	articleMetaIsPaid: 'article-meta-is-paid',
 	// Статья опубликована
-	articleMetaIsPublished: 'article-meta-is-published',
+	// articleMetaIsPublished: 'article-meta-is-published',
 	// -----
 	// Экземпляр заголовка статьи
 	articleHeader: 'article-header',
@@ -42,7 +42,7 @@ export const nodeNames = {
 	// Заметка с жёлтым фоном
 	contentYellowNote: 'content-yellow-note',
 	// Пометка для автора. Непубликуемый.
-	memorandum: 'memorandum',
+	// memorandum: 'memorandum',
 	// Место, где в статье будет кнопка открывающее упражнение
 	contentExercise: 'content-exercise',
 	// Контейнер Вопросов и ответов
@@ -76,6 +76,8 @@ export const nodeNames = {
 	exerciseWordText: 'exercise-word-text',
 	// Контейнер с английским предложением и анализом
 	exerciseAnalysis: 'exercise-analysis',
+	// Варианты английского предложения
+	exerciseEngVariants: 'exercise-eng-variants',
 	// Текст английского предложения
 	exerciseEng: 'exercise-eng',
 	// Контейнер с анализом
