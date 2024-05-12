@@ -32,6 +32,7 @@ function parseGrid(
 	return {
 		type: 'grid',
 		offset: hasOffset,
+		gridId: 'grid-' + Math.round(Math.random() * 100000),
 		cells: cellsConfig,
 	}
 }

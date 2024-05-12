@@ -13,7 +13,11 @@ export function getSentenceWords(exerciseBlockNode: FrameNode): ExercisesType.Wo
 	let exerciseWordsNode: undefined | FrameNode
 
 	exerciseBlockNode.children.forEach((childNode) => {
-		if (childNode.name === nodeNames.exerciseWords && childNode.type == 'FRAME') {
+		if (
+			childNode.name === nodeNames.exerciseWords &&
+			childNode.type == 'FRAME' &&
+			childNode.visible
+		) {
 			exerciseWordsNode = childNode
 		}
 	})

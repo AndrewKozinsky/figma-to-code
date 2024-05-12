@@ -39,14 +39,20 @@ export default createIndexCode
  */
 function createImportsStr(articlesArr: ArticleType.Art[]) {
 	let importsStr = ''
+	let articleNum = 1
 
 	for (let i = 0; i < articlesArr.length; i++) {
 		const article = articlesArr[i]
 
 		const camelCaseSlug = snakeToCamel(article.meta.slug)
 
-		importsStr += `import ${camelCaseSlug} from './${i + 1}_${camelCaseSlug}/${camelCaseSlug}'
+		if (article.type === 'article') {
+			importsStr += `import ${camelCaseSlug} from './${articleNum++}_${camelCaseSlug}/${camelCaseSlug}'
         `
+		} else {
+			importsStr += `import ${camelCaseSlug} from './${camelCaseSlug}/${camelCaseSlug}'
+        `
+		}
 	}
 
 	return importsStr

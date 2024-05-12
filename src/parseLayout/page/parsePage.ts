@@ -79,7 +79,7 @@ function parseWelcomePage(pageNode: FrameNode, pageNum: number): ArticleType.Art
 function parseLevelPage(pageNode: FrameNode, pageNum: number): ArticleType.ArtLevel {
 	const articleObj: ArticleType.ArtLevel = {
 		type: ArticleType.ArtType.level,
-		level: ArticleType.LangLevel.a1,
+		level: getLevel(pageNode),
 		meta: {
 			number: pageNum,
 			caption: '',
@@ -89,6 +89,20 @@ function parseLevelPage(pageNode: FrameNode, pageNum: number): ArticleType.ArtLe
 			isPaid: false,
 			// isPublished: false,
 		},
+	}
+
+	// Возвращает значение уровня статьи: а1, a2.
+	function getLevel(pageNode: FrameNode) {
+		const pageNameParts = pageNode.name.split(' ')
+		const levelArg = pageNameParts.find((str) => str.startsWith('level'))
+
+		if (!levelArg) {
+			return ArticleType.LangLevel.a1
+		}
+
+		const levelValueArr = levelArg.split('=')
+
+		return levelValueArr[1] as ArticleType.LangLevel
 	}
 
 	const caption = 'Уровень ' + ArticleType.LangLevel.a1.toUpperCase()

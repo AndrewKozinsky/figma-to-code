@@ -4,13 +4,18 @@ import { snakeToCamel } from '../utils/strings'
 function createArticlesCode(articlesArr: undefined | ArticleType.Art[]) {
 	if (!articlesArr) return []
 
+	let articleCounter = 0
 	return articlesArr.map((article, i) => {
+		if (article.type === 'article') {
+			articleCounter++
+		}
+
 		let articleCode = getArticleCode(article, i + 1)
 		articleCode = articleFileCodePostprocessing(articleCode)
 
 		return {
 			// Путь до файла статьи
-			path: getArticlePath(article, i + 1),
+			path: getArticlePath(article, articleCounter),
 			// Код, который нужно положить в файл
 			code: articleCode,
 		}
@@ -22,7 +27,11 @@ export default createArticlesCode
 function getArticlePath(article: ArticleType.Art, articleNum: number) {
 	const camelCaseSlug = snakeToCamel(article.meta.slug)
 
-	return `${articleNum}_${camelCaseSlug}/${camelCaseSlug}.tsx`
+	if (article.type === 'article') {
+		return `${articleNum}_${camelCaseSlug}/${camelCaseSlug}.tsx`
+	}
+
+	return `${camelCaseSlug}/${camelCaseSlug}.tsx`
 }
 
 function getArticleCode(article: ArticleType.Art, articleNum: number) {
@@ -50,6 +59,7 @@ const ${camelCaseSlug}: ArticleType.ArtWelcome = {
 		caption: '${article.meta.caption}',
 		articleName: '${article.meta.articleName}',
 		articleDescription: '${article.meta.articleDescription}',
+		isPaid: '${article.meta.isPaid}',
 	},
 }
 
@@ -71,6 +81,7 @@ const ${camelCaseSlug}: ArticleType.ArtLevel = {
 		caption: '${article.meta.caption}',
 		articleName: '${article.meta.articleName}',
 		articleDescription: '${article.meta.articleDescription}',
+		isPaid: '${article.meta.isPaid}',
 	},
 }
 
@@ -91,6 +102,7 @@ const ${camelCaseSlug}: ArticleType.ArtMedia = {
 		caption: '${article.meta.caption}',
 		articleName: '${article.meta.articleName}',
 		articleDescription: '${article.meta.articleDescription}',
+		isPaid: '${article.meta.isPaid}',
 	},
 }
 
@@ -112,6 +124,7 @@ const ${camelCaseSlug}: ArticleType.ArtArticle = {
 		caption: '${article.meta.caption}',
 		articleName: '${article.meta.articleName}',
 		articleDescription: '${article.meta.articleDescription}',
+		isPaid: '${article.meta.isPaid}',
 	},
 	content: ${JSON.stringify(article.content)},
 }
@@ -131,7 +144,7 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 `
 		}
 
-		/*if (artItem.type === 'list' || artItem.type === 'note') {
+		if (artItem.type === 'list' || artItem.type === 'note') {
 			customComponentImportsStr += createCustomComponentImportsStr(artItem.children)
 		} else if (artItem.type === 'faq') {
 			artItem.items.forEach((faqItem) => {
@@ -142,7 +155,7 @@ function createCustomComponentImportsStr(articleContent: ArticleType.Content) {
 			artItem.cells.forEach((gridCell) => {
 				customComponentImportsStr += createCustomComponentImportsStr(gridCell.children)
 			})
-		}*/
+		}
 	})
 
 	return customComponentImportsStr
@@ -159,6 +172,8 @@ function articleFileCodePostprocessing(articleCodeStr: string) {
 	// Поэтому тут они убираются.
 	let updatedStr = articleCodeStr.replace(/component":"</g, 'component": <')
 	updatedStr = updatedStr.replace(/\/>"/g, '/>')
+	updatedStr = updatedStr.replace(/isPaid: 'false'/g, 'isPaid: false')
+	updatedStr = updatedStr.replace(/isPaid: 'true'/g, 'isPaid: true')
 
 	// Так как на странице может быть несколько одинаковых пользовательских компонентов,
 	// то будет несколько одинаковых импортов. Поэтому их нужно убрать

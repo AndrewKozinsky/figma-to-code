@@ -22,8 +22,7 @@ export function parsePages() {
 		}
 
 		// Перебор страниц колонки страниц
-		// for (let i = 0; i < pagesRowNode.children.length; i++) {
-		for (let i = 0; i < 4; i++) {
+		for (let i = 0; i < pagesRowNode.children.length; i++) {
 			const pageNode = pagesRowNode.children[i]
 
 			if (!pageNode.visible) continue

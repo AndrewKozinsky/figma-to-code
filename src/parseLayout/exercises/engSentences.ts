@@ -14,7 +14,7 @@ export function getEngSentences(
 ): ExercisesType.EngSentence[] {
 	// Получение узлов с вариантами перевода на английский и анализом
 	const analysisNodes = exerciseBlockNode.children.filter((childNode) => {
-		return childNode.name === nodeNames.exerciseAnalysis
+		return childNode.name === nodeNames.exerciseAnalysis && childNode.visible
 	})
 
 	const engSentences: ExercisesType.EngSentence[] = []
